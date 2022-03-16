@@ -13,6 +13,7 @@ matplotlib = "*"
 pytest = "*"
 pyinputplus = "*"
 flask = "*"
+seaborn = "*"
 
 [dev-packages]
 
