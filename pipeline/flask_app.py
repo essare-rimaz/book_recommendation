@@ -24,7 +24,22 @@ class Books(db.Model):
 
 #endpoint for search
 @app.route('/', methods=['GET', 'POST'])
-def main():
+def index():
+    if request.method == "POST":
+        # gets the info from the form
+        searched_book = request.form['book']
+        try:
+            books_from_db = Books.query.filter_by(name=searched_book).all()
+            return render_template("/search.html", books=books_from_db)
+        except:
+            return "There was an error adding the book"
+
+    else:
+        return render_template('/index.html')
+
+
+@app.route('/search', methods=['GET', 'POST'])
+def search():
     if request.method == "POST":
         # gets the info from the form
         searched_book = request.form['book']
