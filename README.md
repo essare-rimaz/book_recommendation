@@ -23,6 +23,27 @@ provided within the command line (input etc.)
 - allow multiple arguments for argparse to avoid ambiguity
 - resolve duplicated book-titles + authors
 - build a database
-- turn it into a flask/django web app
+- ~~turn it into a flask/django web app~~
   - https://medium.com/@joseortizcosta/search-utility-with-flask-and-mysql-60bb8ee83dad
 - version history?
+
+### Database issues
+Not enough theoretical knowledge
+- I build a database which is a collection of tables
+- Each table is created as a class where I define its columns
+- I have to connect to a database, add and commit potential inserts
+- When whatever I was doing is done I should close the connection too
+- What is an engine though?
+- What is a **build factory**?
+- How can I insert big csvs to a database table? (somehow dd.to_sql does not deliver)
+![img.png](docs/img.png) from https://www.youtube.com/watch?v=1Va493SMTcY
+
+### Takeaways from learning about databases
+- SQLalchemy builds on top of DBAPI
+- the first step is to create an engine -> I can choose which type of "dialect" I will be using
+- the dialects are for example sqlite, mysql...(thats what URI is doing)
+- engine is lazy, so it doesnt connect to anything unless I tell him to
+- what is the difference between a connection and a session?
+- database metadata = tables and columns
+- what is the difference between model and schema?
+- I don't need to track changes or do abstract stuff, so I can use CORE I guess

@@ -1,9 +1,11 @@
 from flask import Flask, request, render_template, redirect
 from flask_sqlalchemy import SQLAlchemy
+from test_load import books_table
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///books.db"
 
+#TODO prehodit databazi mimo appku
 #initialize the db
 db = SQLAlchemy(app)
 
