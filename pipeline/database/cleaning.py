@@ -35,7 +35,6 @@ def removing_extra_semicolons():
     with open(new_csv_path, 'w') as f:
         f.write(new_csv_str)
 
-    #TODO turn into a test or at least formalize?
 
     #TODO remove any than 1 space in Books-Author (eg. T.           T Gunn)
 
@@ -78,7 +77,7 @@ def remove_unknown_books(books, ratings):
     return existing
 
 
-#TODO asi nema momentalne na nic efekt?
+#TODO asi nema momentalne na nic efekt? Potreba dotahnout at mam v datech jen to co existuje
 def subset_only_existing(existing, books):
     books_filtered = books[books["isbn"].isin(existing)].compute()
     return books_filtered
