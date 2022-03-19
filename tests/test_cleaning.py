@@ -1,4 +1,4 @@
-from pipeline.database.cleaning import remove_unknown_books, subset_only_existing
+from pipeline.database.cleaning import remove_unknown_books, subset_only_existing, rename_book_table_cols
 import dask.dataframe as dd
 import pytest
 
@@ -25,14 +25,22 @@ DUPLICATED_LIST = [
 ]
 
 @pytest.fixture
-def get_cleaned_books_data():
-    books = dd.read_csv(".\\data\\BX-Books_cleaned.txt", encoding="latin1", delimiter=";", dtype={"ISBN": "string"})
+def get_books_data():
+    books = dd.read_csv(".\\data\\BX-Books.txt", encoding="latin1", delimiter=";", dtype={"isbn": "string"})
     return books
 
 
 @pytest.fixture
-def get_ratings_data():
-    ratings = dd.read_csv(".\\data\\BX-Book-Ratings.txt", encoding="latin1", delimiter=";", dtype={"ISBN": "string"})
+def get_cleaned_books_data(get_books_data):
+    rename_book_table_cols(get_books_data)
+    books = dd.read_csv(".\\data\\BX-Books_cleaned.txt", encoding="latin1", delimiter=";", dtype={"isbn": "string"})
+
+    return books
+
+
+@pytest.fixture
+def get_cleaned_ratings_data():
+    ratings = dd.read_csv(".\\data\\BX-Book-Ratings_cleaned.txt", encoding="latin1", delimiter=";", dtype={"isbn": "string"})
     return ratings
 
 
@@ -41,16 +49,21 @@ def test_book_validation_trailing_semicolon(get_cleaned_books_data, book_list):
     """testing cleaning of ';";"'
     For example ";"Tropical aquariums;";"
     """
-    assert len(get_cleaned_books_data["Book-Title"][
-                   get_cleaned_books_data["Book-Title"].str.contains(book_list, regex=True)].compute()) == 1
+    assert len(get_cleaned_books_data["book_title"][
+                   get_cleaned_books_data["book_title"].str.contains(book_list, regex=True)].compute()) == 1
 
 
 @pytest.mark.parametrize("book_list", DUPLICATED_LIST)
 def test_duplicated_books(get_cleaned_books_data, book_list):
-    assert len(get_cleaned_books_data["Book-Title"][get_cleaned_books_data["Book-Title"].str.contains(book_list, regex=True)].compute()) > 1
+    assert len(get_cleaned_books_data["book_title"][get_cleaned_books_data["book_title"].str.contains(book_list, regex=True)].compute()) > 1
 
 
-def test_shape_of_table_with_only_known_books(get_cleaned_books_data, get_ratings_data):
-    existing = remove_unknown_books(get_cleaned_books_data, get_ratings_data)
+def test_shape_of_table_with_only_known_books(get_cleaned_books_data, get_cleaned_ratings_data):
+    existing = remove_unknown_books(get_cleaned_books_data, get_cleaned_ratings_data)
     assert len(subset_only_existing(existing, get_cleaned_books_data)) == 270170
 
+
+def test_shape_of_books_table_after_cleaning(get_cleaned_books_data, get_books_data):
+    assert len(get_cleaned_books_data) == len(get_books_data)
+    assert (len(get_cleaned_books_data)) == 271379
+    

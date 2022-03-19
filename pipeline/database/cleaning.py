@@ -31,7 +31,7 @@ def removing_extra_semicolons():
 
 
     # open new file and save
-    new_csv_path = './data/BX-Books_cleaned.txt'  # or whatever path and name you want
+    new_csv_path = './data/BX-Books.txt'  # or whatever path and name you want
     with open(new_csv_path, 'w') as f:
         f.write(new_csv_str)
 
@@ -45,15 +45,15 @@ def removing_extra_semicolons():
     # only one should stay in database -> only the one who has ratings? merge ratings too?
 
 #for better manipulation with DB
-def rename_cols(books):
-    books_renamed = books.rename(columns= {"ISBN": "isbn",
-                  "Book-Title": "book_title",
-                  "Book-Author": "book_author",
-                  "Year-Of-Publication": "year_of_publication",
-                  "Publisher": "publisher",
-                  "Image-URL-S": "image_s",
-                  "Image-URL-M": "image_m",
-                  "Image-URL-L": "image_l"}).compute()
+def rename_book_table_cols(books):
+    books_renamed = books.rename(columns={"ISBN": "isbn",
+                                           "Book-Title": "book_title",
+                                           "Book-Author": "book_author",
+                                           "Year-Of-Publication": "year_of_publication",
+                                           "Publisher": "publisher",
+                                           "Image-URL-S": "image_s",
+                                           "Image-URL-M": "image_m",
+                                           "Image-URL-L": "image_l"}).compute()
 
     # open new file and save
     new_csv_path = './data'  # or whatever path and name you want
@@ -61,11 +61,17 @@ def rename_cols(books):
     #books_renamed.write("\data\myfile.txt")
 
 
-#TODO rename cols in ratings!
+def rename_rating_table_cols(ratings):
+    ratings_renamed = ratings.rename(columns={"User-ID": "user_id",
+                                              "ISBN": "isbn",
+                                              "Book-Rating": "book_rating"}).compute()
+    ratings_renamed.to_csv(".\\data\\BX-Book-Ratings_cleaned.txt", sep=";", index=False)
+
+
 #najdi mi vsechny isbn, ktery nejsou v books
 def remove_unknown_books(books, ratings):
     books_unique = books["isbn"].unique().compute()
-    ratings_unique = ratings["ISBN"].unique().compute()
+    ratings_unique = ratings["isbn"].unique().compute()
     books_set = set(books_unique)
     ratings_set = set(ratings_unique)
     existing = list(books_set.intersection(ratings_set))
@@ -77,14 +83,13 @@ def subset_only_existing(existing, books):
     books_filtered = books[books["isbn"].isin(existing)].compute()
     return books_filtered
 
-books = dd.read_csv(".\\data\\BX-Books_cleaned.txt", encoding="latin1", delimiter=";", dtype={"isbn": "string"})
-
-ratings = dd.read_csv(".\\data\\BX-Book-Ratings.txt", encoding="latin1", delimiter=";", dtype={"ISBN": "string"})
-print(len(books))
 removing_extra_semicolons()
-books = dd.read_csv(".\\data\\BX-Books_cleaned.txt", encoding="latin1", delimiter=";", dtype={"isbn": "string"})
-print(len(books))
-rename_cols(books)
+books = dd.read_csv(".\\data\\BX-Books.txt", encoding="latin1", delimiter=";", dtype={"isbn": "string"})
+ratings = dd.read_csv(".\\data\\BX-Book-Ratings.txt", encoding="latin1", delimiter=";", dtype={"ISBN": "string"})
+
+rename_book_table_cols(books)
+rename_rating_table_cols(ratings)
+ratings = dd.read_csv(".\\data\\BX-Book-Ratings_cleaned.txt", encoding="latin1", delimiter=";", dtype={"isbn": "string"})
 books = dd.read_csv(".\\data\\BX-Books_cleaned.txt", encoding="latin1", delimiter=";", dtype={"isbn": "string"})
 x = remove_unknown_books(books, ratings)
 
