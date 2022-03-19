@@ -1,4 +1,4 @@
-from pipeline.cleaning import remove_unknown_books, subset_only_existing
+from pipeline.database.cleaning import remove_unknown_books, subset_only_existing
 import dask.dataframe as dd
 import pytest
 

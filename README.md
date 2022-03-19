@@ -23,6 +23,8 @@ provided within the command line (input etc.)
 - allow multiple arguments for argparse to avoid ambiguity
 - resolve duplicated book-titles + authors
 - build a database
+  - ~~create table for books~~
+  - create table for ratings
 - ~~turn it into a flask/django web app~~
   - https://medium.com/@joseortizcosta/search-utility-with-flask-and-mysql-60bb8ee83dad
 - version history?
@@ -47,3 +49,4 @@ Not enough theoretical knowledge
 - database metadata = tables and columns
 - what is the difference between model and schema?
 - I don't need to track changes or do abstract stuff, so I can use CORE I guess
+- trying to figure out what works for SQLalchemy 1.X and 2.0 is insane
