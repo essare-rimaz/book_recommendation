@@ -6,10 +6,15 @@ DB_NAME = "database.db"
 
 
 def create_app():
+    """ Setup of the web application
+
+    """
     app = Flask(__name__)
     app.config["SECRET_KEY"] = "very secret"
+    # a fix for multithreading, probably not necessary for dev
     app.session = scoped_session(SessionLocal, scopefunc=_app_ctx_stack.__ident_func__)
 
+    # Path creating with possible prefixes
     from .index import index
     from .search import search
     from .insert import insert

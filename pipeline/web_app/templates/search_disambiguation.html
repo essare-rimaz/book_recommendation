@@ -7,11 +7,14 @@
 <div class="column is-4 is-offset-4">
     <form class="example" method="post" action=""
      style="margin:auto;max-width:600px">
-        <input class="input is-large" type="text" placeholder="Submit a book title" name="book">
+        <h3>
+            We found multiple books with this name.
+        </h3>
+        <input class="input is-large" type="text" placeholder="Please choose an ISBN" name="isbn">
     </form>
 <center>
 {% for book in books %}
-        <h4> {{ book }}</h4>
+        <h4> {{ book[0] }}</h4>
 {% endfor %}
 </center>
 </div>

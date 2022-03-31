@@ -1,6 +1,7 @@
 from flask import Blueprint, request, render_template
 from pipeline.database.database import SessionLocal, engine
 from sqlalchemy import select, MetaData
+from pipeline.processing import recommend_book, find_searched_book_title_isbn, find_users_who_liked_searched_book, find_candidate_books
 
 search = Blueprint("search", __name__)
 
@@ -9,40 +10,34 @@ search = Blueprint("search", __name__)
 def search_function():
     if request.method == "POST":
         # gets the info from the form
+        print(type(request.form["book"]))
+        print(f">>{request.form['book']}<<")
         searched_book = request.form['book']
         print(f"books searched was {searched_book}")
 
-        #for user_obj in result.scalars():
-        #    print(user_obj)
-        #result = select([func.count()]).select_from(tables).where("book_title" == "Selected Poems").scalar()
-        #result = select(tables.c.isbn).where(tables.c.book_title == "Stone Butch Blues;Leslie Feinberg").scalar()
-        #result = select(tables.c.isbn).count()
-        #result = select(tables).where(tables.c.book_title == "Selected Poems").scalars()
-        # result = Book.query.filter_by(book_title=searched_book).all()
-
-
         try:
-            meta_data = MetaData(bind=engine)
-            MetaData.reflect(meta_data)
-            tables = meta_data.tables["books_table"]
-            session = SessionLocal()
-            stmt = select(tables.c.isbn).where(tables.c.book_title == searched_book)
-            result = session.execute(stmt).fetchall()
-            test = session.execute(stmt).fetchall()
-            print(dir(test))
-            print(test.__class__)
-            print(test[0].__class__)
-            print(dir(test[0]))
-            print(test[0]._fields)
-            print(test[0].isbn)
-            for x in test[0].isbn:
-                print(x)
-            #print(isbn)
-            #print(result)
+            #TODO replace with a defined function
+            # meta_data = MetaData(bind=engine)
+            # MetaData.reflect(meta_data)
+            # tables = meta_data.tables["books_table"]
+            # session = SessionLocal()
+            # stmt = select(tables.c.isbn).where(tables.c.book_title == searched_book)
+            # result = session.execute(stmt).fetchall()
+            # result = recommend_book(searched_book)
+            result = find_searched_book_title_isbn(searched_book)
 
-            return render_template("/search.html", books=result)
+            if len(result) > 1:
+                return render_template("/search_disambiguation.html", books=result)
+            else:
+                users = find_users_who_liked_searched_book(result)
+                result_real = find_candidate_books(users)
+                return render_template("/search.html", books=result_real)
         except:
-            return "There was an error adding the book"
+            if searched_book == "":
+                return render_template("/search.html", books=["Please submit a book title"])
+            else:
+                return render_template("/search.html", books=["There was an error searching the book"])
+
 
     else:
         return render_template('/search.html')
