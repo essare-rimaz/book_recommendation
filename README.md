@@ -22,9 +22,9 @@ provided within the command line (input etc.)
 - make a visualization of the distribution of mean ratings
 - allow multiple arguments for argparse to avoid ambiguity
 - resolve duplicated book-titles + authors
-- build a database
+- ~~build a database~~
   - ~~create table for books~~
-  - create table for ratings
+  - ~~create table for ratings~~
 - ~~turn it into a flask/django web app~~
   - https://medium.com/@joseortizcosta/search-utility-with-flask-and-mysql-60bb8ee83dad
 - version history?
@@ -50,3 +50,12 @@ Not enough theoretical knowledge
 - what is the difference between model and schema?
 - I don't need to track changes or do abstract stuff, so I can use CORE I guess
 - trying to figure out what works for SQLalchemy 1.X and 2.0 is insane
+
+### IDEAS
+- ISBNs seem to be pretty messed up (at least in ranking)
+  - $, ´, Ô½, ooo probably not meant to be in ISBN
+  - it would be great to have a tool that validates ISBN as per its [standard](https://en.wikipedia.org/wiki/International_Standard_Book_Number)
+- inserting new books would be a great feature too
+- additional information for books such as genre would probably help
+- it is difficult to enter books without seeing the database -> browsing could be useful
+- when the final book is found, I could turn it into a clickable link that would open its cover
