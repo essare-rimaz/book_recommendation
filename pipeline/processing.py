@@ -142,7 +142,7 @@ def compute_their_ranking(books: list):
     # pro kazdou knizku na seznamu spocita na ?nefiltrovanem datasetu? jake ma hodnoceni; vraci jednu knizku s nejvyssim
     # hodnocenim
 
-    computation = dd.read_csv("data\\BX-Book-Ratings.txt", encoding="latin1", delimiter=";", dtype={"isbn": "string"})
+    computation = dd.read_csv("data\\BX-Book-Ratings_cleaned.txt", encoding="latin1", delimiter=";", dtype={"isbn": "string"})
     filtered_for_computation = computation[computation["isbn"].isin(books)].compute()
     print(filtered_for_computation)
     isbn_indexes = filtered_for_computation.groupby("isbn")["book_rating"].sum().reset_index()
@@ -161,5 +161,3 @@ def find_the_name(isbn: str) -> str:
     final_recommendation = books[filtering]["book_title"].compute()
     print(f"You will definnetly like {final_recommendation} too!")
     return final_recommendation
-
-recommend_book("Tell Me This Isn't Happening")

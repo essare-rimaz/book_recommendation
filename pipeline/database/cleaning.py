@@ -1,9 +1,6 @@
 import re
 import dask.dataframe as dd
 
-#books = dd.read_csv(".\\data\\BX-Books_cleaned.txt", encoding="latin1", delimiter=";", dtype={"ISBN": "string"})
-#ratings = dd.read_csv(".\\data\\BX-Book-Ratings.txt", encoding="latin1", delimiter=";", dtype={"ISBN": "string"})
-
 
 def removing_extra_semicolons():
     with open("./data/BX-Books.csv", 'r') as f:
