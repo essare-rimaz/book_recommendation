@@ -13,9 +13,6 @@ class Book(Base):
     image_url_m = Column(String(200))
     image_url_l = Column(String(200))
 
-    def __init__(self):
-        isbn = self.isbn
-
 
 #TODO declare foreign keys? to make a connection between these two tables?
 class Rating(Base):
@@ -23,6 +20,3 @@ class Rating(Base):
     user_id = Column(String, primary_key=True)
     isbn = Column(String, primary_key=True)
     rating = Column(String(200))
-
-    def __init__(self):
-        isbn = self.isbn

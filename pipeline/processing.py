@@ -67,6 +67,7 @@ def find_candidate_books(users):
     candidate_book_name = session.execute(stmt).fetchone().book_title
     return [candidate_book_name]
 
+
 def recommend_book(searched_book):
     books_table, ratings_table, session = database_connection()
 
