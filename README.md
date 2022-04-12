@@ -1,19 +1,31 @@
 ### How to run it
 
-Install the context and library management
+When in the project root start env
 ```commandline
-pip install pipenv
+env\Scripts\activate
 ```
-When in the project root start a venv
+
+Use requirements to install the dependencies
 ```commandline
-pipenv shell
+pip install -r requirements.txt
 ```
-Use Pipfile and Pipfile.lock to install the dependencies
+For cmd line demo start the project using 
 ```commandline
-pipenv install
-```
-Start the project using `run.py` and follow the instructions
-provided within the command line (input etc.)
+python run.py
+``` 
+and follow the instructions provided within the command line (input etc.)
+
+For interacting with the main part of the project - Flask web app, use
+```commandline
+python main.py
+``` 
+
+### GOALS of the project
+- have a first handson experience with making a flask app
+- connect an app with a database
+- try working with Dask
+- for the sake of curiousity (not functionality) test out `argparse` library
+- emphasis on project structure
 
 ### TODO
 
@@ -22,6 +34,7 @@ provided within the command line (input etc.)
 - make a visualization of the distribution of mean ratings
 - allow multiple arguments for argparse to avoid ambiguity
 - resolve duplicated book-titles + authors
+  - e.g. one author with the same title which has multiple ISBNs
 - ~~build a database~~
   - ~~create table for books~~
   - ~~create table for ratings~~
