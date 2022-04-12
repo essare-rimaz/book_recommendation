@@ -1,6 +1,6 @@
 import sys
 from pipeline.interface import parse_args
-from pipeline.processing import get_positive_feedback_users, candidate_books, \
+from pipeline.interface_processing import get_positive_feedback_users, candidate_books, \
     compute_their_ranking, find_the_name
 from pipeline.disambiguation import get_isbn_of_given_book, check_for_duplicates
 

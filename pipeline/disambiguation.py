@@ -2,7 +2,7 @@ import dask.dataframe as dd
 import pyinputplus as pyip
 
 
-def check_for_duplicates(book_title: str) -> tuple[str, str]:
+def check_for_duplicates(book_title: str):
     books = dd.read_csv("data\\BX-Books_cleaned.txt", encoding="latin1", delimiter=";", dtype={"isbn": "string"})
     filter_by_book_title = (books["book_title"] == book_title)
 
