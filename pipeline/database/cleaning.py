@@ -1,29 +1,36 @@
 import re
 import dask.dataframe as dd
+# TODO remove any than 1 space in Books-Author (eg. T.           T Gunn)
+
+#TODO remove TRUE duplicates! e.g. "Selected Poems by Rita Dove", "The Kitchen God's Wife", "Into the Deep",
+# Simlarillion
+# so if book title and author name is the same,
+# only one should stay in database -> only the one who has ratings? merge ratings too?
 
 
 def removing_extra_semicolons():
     with open("./data/BX-Books.csv", 'r') as f:
         my_csv_text = f.read()
 
-    find_str = '&amp;'
-    replace_str = '&'
-    find_pokus = r'((?<!\");\".*?)((?<!\");(?!\"))(.*?\";\")'
-    replace_pokus = '\\1\\3'
-    find_str_2 = r'\\"'
-    replace_str_2 = ''
+    find_str_1 = '&amp;'
+    replace_str_1 = '&'
 
-    find_str_4 = " ; "
-    replace_str_4 = " "
-    find_str_5 = r'((?<!\");\".*?)((?<!\");)(.*?\";\")'
-    replace_str_5 = r'\\1\\3'
+    find_str_2 = r'((?<!\");\".*?)((?<!\");(?!\"))(.*?\";\")'
+    replace_str_2 = '\\1\\3'
+
+    find_str_3 = r'\\"'
+    replace_str_3 = ''
+
+    find_str_4 = r'((?<!\");\".*?)((?<!\");)(.*?\";\")'
+    replace_str_4 = r'\\1\\3'
+
     find_str_6 = r';";"'
     replace_str_6 = r'";"'
 
-    new_csv_str = re.sub(find_str, replace_str, my_csv_text)
-    new_csv_str = re.sub(find_pokus, replace_pokus, new_csv_str)
+    new_csv_str = re.sub(find_str_1, replace_str_1, my_csv_text)
     new_csv_str = re.sub(find_str_2, replace_str_2, new_csv_str)
-    new_csv_str = re.sub(find_str_5, replace_str_5, new_csv_str)
+    new_csv_str = re.sub(find_str_3, replace_str_3, new_csv_str)
+    new_csv_str = re.sub(find_str_4, replace_str_4, new_csv_str)
     new_csv_str = re.sub(find_str_6, replace_str_6, new_csv_str)
 
 
@@ -32,13 +39,6 @@ def removing_extra_semicolons():
     with open(new_csv_path, 'w') as f:
         f.write(new_csv_str)
 
-
-    #TODO remove any than 1 space in Books-Author (eg. T.           T Gunn)
-
-    #TODO remove TRUE duplicates! e.g. "Selected Poems by Rita Dove", "The Kitchen God's Wife", "Into the Deep",
-    # Simlarillion
-    # so if book title and author name is the same,
-    # only one should stay in database -> only the one who has ratings? merge ratings too?
 
 #for better manipulation with DB
 def rename_book_table_cols(books):
@@ -52,9 +52,7 @@ def rename_book_table_cols(books):
                                            "Image-URL-L": "image_l"}).compute()
 
     # open new file and save
-    new_csv_path = './data'  # or whatever path and name you want
     books_renamed.to_csv(".\\data\\BX-Books_cleaned.txt", sep=";", index=False)
-    #books_renamed.write("\data\myfile.txt")
 
 
 def rename_rating_table_cols(ratings):
