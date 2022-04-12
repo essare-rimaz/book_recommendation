@@ -1,6 +1,9 @@
 ### How to run it
 
-When in the project root start env
+When in the project root create and start env
+```commandline
+python -m venv env
+```
 ```commandline
 env\Scripts\activate
 ```
@@ -19,6 +22,17 @@ For interacting with the main part of the project - Flask web app, use
 ```commandline
 python main.py
 ``` 
+
+### Example
+Unfortunately as for the moment, one cannot browse in the entire database before searching
+for a recommendation. Since the search is an exact match search, it is quite difficult to actually use it.
+Here a few examples of books to try out.
+
+- flawless search with a unique book title: "Tell Me This Isn't Happening"
+- search of need of disambiguation because multiple books from different authors exist: "Selected poems"
+- in order to demonstrate exact match search one might even search "Selected Poems" which yields different book set
+- one of the limitations to be fixed is how to deal with the same book from the same author, which has different ISBN
+because it is from a different edition: "The Lord of the Rings"
 
 ### GOALS of the project
 - have a first handson experience with making a flask app
