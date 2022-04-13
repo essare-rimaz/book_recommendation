@@ -43,12 +43,15 @@ because it is from a different edition: "The Lord of the Rings"
 
 ### TODO
 
+- improve argparse
+  - search in database instead of directly in data
+  - use the same recommendation algorithm as flask app instead of its own
 - create pdoc - improve documentation
 - ~~make a visualization of the distribution of all ratings~~
 - make a visualization of the distribution of mean ratings
-- allow multiple arguments for argparse to avoid ambiguity
-- resolve duplicated book-titles + authors
-  - e.g. one author with the same title which has multiple ISBNs
+- ~~allow multiple arguments for argparse to avoid ambiguity~~
+- ~~resolve duplicated book-titles + authors~~
+  - ~~e.g. one author with the same title which has multiple ISBNs~~
 - ~~build a database~~
   - ~~create table for books~~
   - ~~create table for ratings~~
