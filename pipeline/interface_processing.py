@@ -1,5 +1,6 @@
 import dask.dataframe as dd
 
+#TODO zkusit vyuzivat stejny processing jako webapp?
 
 def get_positive_feedback_users(selected_isbn: str, threshold: int = 7) -> list:
     ratings = dd.read_csv("data\\BX-Book-Ratings_cleaned.txt", encoding="latin1", delimiter=";", dtype={"isbn": "string"})
