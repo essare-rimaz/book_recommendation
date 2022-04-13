@@ -4,8 +4,7 @@ import pytest
 
 
 POSITIVE_RANKING = [
-    ("Tell Me This Isn't Happening", "Robynn Clairday"),
-    ("Into the Deep", "Ken Grimwood")
+    ("Tell Me This Isn't Happening", "Robynn Clairday")
 ]
 
 
