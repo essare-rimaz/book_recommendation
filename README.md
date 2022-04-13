@@ -39,6 +39,7 @@ because it is from a different edition: "The Lord of the Rings"
 - connect an app with a database
 - try working with Dask
 - for the sake of curiousity (not functionality) test out `argparse` library
+- try out `argparse` library to improve debugging/dev skills
 - emphasis on project structure
 
 ### TODO
