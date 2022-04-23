@@ -4,16 +4,15 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-pyspark = "*"
 pandas = "*"
 numpy = "*"
-pyarrow = "*"
 dask = {extras = ["complete"], version = "*"}
 matplotlib = "*"
 pytest = "*"
 pyinputplus = "*"
 flask = "*"
 seaborn = "*"
+flask-sqlalchemy = "*"
 
 [dev-packages]
 

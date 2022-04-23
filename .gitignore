@@ -1,7 +1,8 @@
 /.idea
+__pycache__/
 /.pytest_cache
 /dask-worker-space
 ML_task.pdf
-hello.py
 BX-CSV-Dump.zip
-/pipeline/__pycache__
+/env
+pipeline/database/database.db

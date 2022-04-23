@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="title">
+  Get a book recommendation
+</h1>
+<div class="column is-4 is-offset-4">
+    <form class="example" method="post" action=""
+     style="margin:auto;max-width:600px">
+        <input class="input is-large" type="text" placeholder="Submit a book title" name="book">
+    </form>
+<center>
+{% for book in books %}
+        <h4> {{ book }}</h4>
+{% endfor %}
+</center>
+</div>
+{% endblock %}
